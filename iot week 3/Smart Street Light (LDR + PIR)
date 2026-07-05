@@ -1,0 +1,114 @@
+/*
+  Q23 - Smart Street Light
+  Components:
+  - Photoresistor (LDR)
+  - PIR Sensor
+  - LED (PWM)
+
+  LED OFF during daytime.
+  At night:
+    Motion detected -> LED 100% brightness for 30 seconds.
+    No motion after 30 seconds -> LED 20% brightness.
+*/
+
+const int ldrPin = A0;
+const int pirPin = 2;
+const int ledPin = 9;
+
+const int lightThreshold = 500;   // Adjust if required
+
+bool motionActive = false;
+unsigned long motionTime = 0;
+unsigned long previousLog = 0;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+
+  Serial.println("Smart Street Light Started");
+}
+
+void loop() {
+
+  int lightValue = analogRead(ldrPin);
+  int motion = digitalRead(pirPin);
+
+  unsigned long currentTime = millis();
+
+  // Daytime
+  if (lightValue > lightThreshold) {
+
+    analogWrite(ledPin, 0);
+
+    if (currentTime - previousLog >= 5000) {
+      previousLog = currentTime;
+      printTime();
+      Serial.println("EVENT: Daylight detected - LED OFF");
+    }
+
+    motionActive = false;
+  }
+
+  // Night
+  else {
+
+    if (motion == HIGH) {
+
+      motionActive = true;
+      motionTime = currentTime;
+
+      analogWrite(ledPin, 255);
+
+      printTime();
+      Serial.println("EVENT: Motion detected - LED ON (100%)");
+    }
+
+    else {
+
+      if (motionActive && currentTime - motionTime < 30000) {
+
+        analogWrite(ledPin, 255);
+      }
+
+      else {
+
+        motionActive = false;
+
+        analogWrite(ledPin, 51);
+
+        if (currentTime - previousLog >= 5000) {
+
+          previousLog = currentTime;
+
+          printTime();
+          Serial.println("EVENT: No motion - LED DIM (20%)");
+        }
+      }
+    }
+  }
+}
+
+// Prints time as HH:MM:SS
+void printTime() {
+
+  unsigned long totalSeconds = millis() / 1000;
+
+  int hours = totalSeconds / 3600;
+  int minutes = (totalSeconds % 3600) / 60;
+  int seconds = totalSeconds % 60;
+
+  if (hours < 10) Serial.print("0");
+  Serial.print(hours);
+  Serial.print(":");
+
+  if (minutes < 10) Serial.print("0");
+  Serial.print(minutes);
+  Serial.print(":");
+
+  if (seconds < 10) Serial.print("0");
+  Serial.print(seconds);
+
+  Serial.print(" ");
+}
