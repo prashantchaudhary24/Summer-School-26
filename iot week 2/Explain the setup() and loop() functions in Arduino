@@ -1,0 +1,20 @@
+setup() and loop() in Arduino
+setup(): Runs only once when the Arduino is powered on or reset. It is used to initialize pins, Serial communication, and other hardware.
+loop(): Runs continuously after setup(). It contains the main program logic that repeats as long as the Arduino is powered.
+What happens if you put a long delay() inside loop()?
+
+A long delay() blocks the program, so the Arduino cannot execute any other code during that time. As a result, sensor readings, button presses, and other tasks are delayed.
+
+How does this affect sensor reading responsiveness?
+
+Sensors are read only after the delay finishes. This makes the system slow to respond and may cause quick sensor changes or button presses to be missed.
+
+What is the non-blocking alternative?
+
+The non-blocking alternative is to use the millis() function. It keeps track of elapsed time without stopping the program, allowing the Arduino to perform multiple tasks (such as reading sensors and controlling LEDs) simultaneously.
+
+Answer suitable for 2 marks:
+
+setup() runs once for initialization, while loop() runs repeatedly.
+A long delay() blocks the program and reduces sensor responsiveness.
+Using millis() provides a non-blocking way to manage timing while keeping the system responsive.
