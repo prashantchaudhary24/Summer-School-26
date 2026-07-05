@@ -1,0 +1,22 @@
+What is PWM?
+
+PWM (Pulse Width Modulation) is a technique that simulates analog output by rapidly switching a digital pin ON and OFF. By changing the ON time (duty cycle), Arduino controls the average power delivered to a device.
+
+Why is PWM used?
+
+To control LED brightness.
+To control DC motor speed.
+To save power while providing variable output.
+Practical IoT Example of analogRead()
+
+Smart Street Light
+
+An LDR (Light Dependent Resistor) is connected to an analog pin.
+Arduino uses analogRead() to measure ambient light.
+If it gets dark, the street light turns ON automatically.
+Practical IoT Example of analogWrite()
+
+Smart Home Lighting
+
+An LED is connected to a PWM pin.
+Arduino uses analogWrite() to adjust the LED brightness based on room conditions or commands from a mobile app.
