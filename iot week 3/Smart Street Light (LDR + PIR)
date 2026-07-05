@@ -1,16 +1,3 @@
-/*
-  Q23 - Smart Street Light
-  Components:
-  - Photoresistor (LDR)
-  - PIR Sensor
-  - LED (PWM)
-
-  LED OFF during daytime.
-  At night:
-    Motion detected -> LED 100% brightness for 30 seconds.
-    No motion after 30 seconds -> LED 20% brightness.
-*/
-
 const int ldrPin = A0;
 const int pirPin = 2;
 const int ledPin = 9;
