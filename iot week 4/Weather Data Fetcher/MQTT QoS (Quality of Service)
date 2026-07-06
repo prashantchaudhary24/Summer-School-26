@@ -1,0 +1,31 @@
+Quality of Service (QoS) in MQTT defines how reliably messages are delivered between the publisher and subscriber.
+
+QoS Level	Description	Reliability
+QoS 0 – At most once	Message is sent only once. No acknowledgment is received. The message may be lost.	Lowest
+QoS 1 – At least once	Message is delivered at least once. The receiver sends an acknowledgment (ACK). Duplicate messages may occur.	Medium
+QoS 2 – Exactly once	Message is delivered exactly once using a four-step handshake. No message loss or duplication occurs.	Highest
+QoS Levels
+QoS 0 (At most once):
+Fastest communication.
+No guarantee of message delivery.
+Suitable for non-critical data.
+QoS 1 (At least once):
+Ensures the message reaches the receiver.
+Duplicate messages are possible.
+Suitable for most IoT applications.
+QoS 2 (Exactly once):
+Guarantees that each message is delivered exactly one time.
+Highest reliability but has more network overhead.
+Which QoS for an IoT Water Level Monitoring System?
+
+Recommended: QoS 1 (At least once).
+
+Reason:
+
+Water level data should reliably reach the cloud or monitoring system.
+If a duplicate message is received, it usually does not cause major problems because the latest sensor reading can simply overwrite the previous one.
+QoS 1 provides a good balance between reliability, speed, and network usage.
+QoS 2 is more reliable but adds extra communication overhead and is generally unnecessary for periodic water level readings.
+
+Conclusion:
+For an IoT water level monitoring system, QoS 1 (At least once) is the best choice because it ensures reliable message delivery while keeping network overhead low.
