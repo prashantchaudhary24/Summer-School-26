@@ -1,0 +1,11 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+const char* apiKey = "YOUR_OPENWEATHERMAP_API_KEY";
+const char* city = "Delhi";
+const char* countryCode = "IN";
+
+#endif
