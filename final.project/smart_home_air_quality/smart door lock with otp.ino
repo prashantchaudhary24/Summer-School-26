@@ -3,15 +3,12 @@
 #include <Keypad.h>
 #include <ESP32Servo.h>
 
-// ================= LCD =================
-// If this doesn't work, change 0x27 → 0x3F
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// ================= SERVO =================
+
 Servo doorServo;
 #define SERVO_PIN 18
 
-// ================= KEYPAD =================
 const byte ROWS = 4;
 const byte COLS = 4;
 
@@ -27,7 +24,6 @@ byte colPins[COLS] = {26, 25, 33, 32};
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-// ================= VARIABLES =================
 String userID = "";
 String otp = "";
 String inputOTP = "";
@@ -37,16 +33,15 @@ bool otpSent = false;
 unsigned long otpStartTime = 0;
 const unsigned long otpTimeout = 30000;
 
-// ================= SETUP =================
 void setup() {
 
   Serial.begin(115200);
 
-  // Servo setup
+ 
   doorServo.attach(SERVO_PIN);
-  doorServo.write(0); // locked
+  doorServo.write(0);
 
-  // LCD setup
+  
   lcd.init();
   lcd.backlight();
 
@@ -61,7 +56,7 @@ void setup() {
   Serial.println("System Ready");
 }
 
-// ================= OTP GENERATOR =================
+
 String generateOTP() {
   String code = "";
   for (int i = 0; i < 6; i++) {
@@ -70,12 +65,12 @@ String generateOTP() {
   return code;
 }
 
-// ================= LOOP =================
+
 void loop() {
 
   char key = keypad.getKey();
 
-  // ================= STEP 1: ENTER ID =================
+  
   if (!otpSent) {
 
     lcd.setCursor(0,0);
@@ -114,7 +109,7 @@ void loop() {
     }
   }
 
-  // ================= STEP 2: ENTER OTP =================
+ 
   else {
 
     if (millis() - otpStartTime > otpTimeout) {
@@ -176,7 +171,7 @@ void loop() {
   }
 }
 
-// ================= RESET SYSTEM =================
+
 void resetSystem(bool success) {
 
   Serial.println("----------------------");
