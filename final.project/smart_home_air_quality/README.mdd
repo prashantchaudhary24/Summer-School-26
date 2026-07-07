@@ -1,0 +1,26 @@
+River Water Level Alert (Flood Detection) – ESP32 (Cirkit Designer)
+
+This project demonstrates a low-cost IoT-based flood monitoring system using an ESP32 and an HC-SR04 ultrasonic sensor designed in Cirkit Designer. The sensor is mounted above the water surface to continuously measure the distance between the sensor and the water. As the water level rises, the measured distance decreases.
+
+Based on predefined thresholds, the system categorizes the water level into Normal, Warning, and Critical states. Visual alerts are provided using LEDs, while a buzzer generates different alert patterns. A rolling average of the last ten ultrasonic readings is used to reduce noise and improve measurement accuracy.
+
+Features
+Water level measurement using an HC-SR04 ultrasonic sensor.
+Rolling 10-sample average for stable and accurate readings.
+Three flood alert levels:
+Normal (>30 cm clearance)
+Warning (15–30 cm clearance)
+Critical (<15 cm clearance)
+LED indicators for each alert level.
+Different buzzer patterns based on alert status.
+Real-time monitoring through the Serial Monitor.
+Designed and simulated using Cirkit Designer.
+Working Principle
+The HC-SR04 ultrasonic sensor is positioned above the water surface.
+The ESP32 continuously measures the distance to the water surface.
+The last ten readings are stored and averaged to eliminate random measurement noise.
+Based on the averaged distance:
+Greater than 30 cm: Green LED turns ON, indicating Normal water level.
+Between 15 cm and 30 cm: Yellow LED lights up and the buzzer emits intermittent beeps, indicating a Warning.
+Less than 15 cm: Red LED turns ON and the buzzer sounds continuously, indicating a Critical flood condition.
+The measured distance and corresponding alert level are displayed on the Serial Monitor for monitoring and debugging.
